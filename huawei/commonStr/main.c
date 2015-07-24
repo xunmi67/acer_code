@@ -9,7 +9,7 @@ int max_leng(int *a,int leng);
 /*cal common substr length of a[as-ae] and b[bs-be]*/
 int common(const char *a,int as,int ae,const char *b,int bs,int be);
 /*cal common substr of a and b*/
-int longest_common(char* a,int aleng,char* b,int bleng);
+int getCommonStrLength(char* a,char* b);
 int main(char **agv,int agn){
     char *a = (char*)malloc(MAX_L*sizeof(char));
     char *b = (char*)malloc(MAX_L*sizeof(char));
@@ -17,20 +17,14 @@ int main(char **agv,int agn){
     scanf("%999s",b);
     size_t al = strlen(a);
     size_t bl = strlen(b);
-    unsigned int result = longest_common(a,al,b,bl);
+    unsigned int result = getCommonStrLength(a,b);
     printf("%d",result);
 
     
     free(a);free(b);
     return 0;
 }
-int main_t(){
-    char *a="abcdexx";
-    char *b="cdeyyy";
-    int r = longest_common(a,7,b,6);
-    printf("%d\n",r);
-    return 0;
-}
+
 void print_array(int *r,int l){
     int i=0;
     for(;i<l;i++){
@@ -38,11 +32,16 @@ void print_array(int *r,int l){
     }
     printf("\n");
 }
-int longest_common(char* a,int la,char* b,int lb){
+int getCommonStrLength(char* a,char* b){
+    int la = strlen(a);
+    int lb = strlen(b);
     if(la<lb){
 	char *t=a;
 	a=b;
 	b=t;
+	int it=la;
+	la=lb;
+	lb=it;
     }
     int maxl = 0;
     int sh = 0;
@@ -64,7 +63,7 @@ int common(const char *a,int as,int ae,const char *b,int bs,int be){
     for(;i<=(ae-as);i++){
 	result[i] = !(a[as+i]==b[bs+i]||(a[as+i]-b[bs+i]==diff)||(b[bs+i]-a[as+i]==diff));
     }
-    print_array(result,(ae-as+1));
+//    print_array(result,(ae-as+1));
     return max_leng(result,ae-as+1);
 }
 /*u can image tha a like[0,1,1,0,0,1],where 0 means char matches*/
