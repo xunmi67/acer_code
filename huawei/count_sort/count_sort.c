@@ -88,8 +88,24 @@ void test_count_sort(){
 	free(pos);
 	free(result);
 }
-    
+#define MAXL 1000 
 int main(char **agv, int agn){
-    test_count_sort();
+	char  str[MAXL];
+    char* after = (char*) malloc(sizeof(char)*MAXL);
+	char tempc;
+	int i=0;
+	while( (tempc=getchar())!=EOF){
+		str[i++]=(char)tempc;
+	}
+	str[i]='\0';
+	pos = (int*)calloc((strlen(str)+ 1),sizeof(int));
+	count_sort(str,after,pos);
+	char* result= (char*) malloc(sizeof(char)*strlen(str));
+	insert(str,after,result);
+    printf("%s",result); 
+    free(after);
+	free(pos);
+	free(result);
+	
     return 0;
 }				 
